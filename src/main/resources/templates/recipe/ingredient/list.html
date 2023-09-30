@@ -55,15 +55,15 @@
                                 ingredient.getUnitOfMeasure().getDescription() + ' - ' + ingredient.getDescription()}">
                             </td>
                             <td>
-                                <a href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/ingredient' +
+                                <a href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/ingredients/' +
                                 ${ingredient.getId()} + '/show' }">View</a>
                             </td>
                             <td>
-                                <a href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/ingredient' +
+                                <a href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/ingredients/' +
                                 ${ingredient.getId()} + '/update' }">Update</a>
                             </td>
                             <td>
-                                <a href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/ingredient' +
+                                <a href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/ingredients/' +
                                 ${ingredient.getId()} + '/delete'}">Delete</a>
                             </td>
                         </tr>
