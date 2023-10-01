@@ -1,12 +1,15 @@
 package guru.springframework.domain;
 
-import lombok.*;
-
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode( exclude = {"recipe"})
+@ToString( exclude = {"recipe"} )
 @Entity
 public class Notes {
     @OneToOne

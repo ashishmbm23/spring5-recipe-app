@@ -28,37 +28,45 @@ public class RecipeServiceImpl implements RecipeService {
         log.debug("Entering findAllRecipes");
         Set<Recipe> recipes = new TreeSet<>();
         recipeRepository.findAll().iterator().forEachRemaining(recipes::add);
+        log.info("Exiting findAllRecipes");
         return recipes;
     }
 
     @Override
     public Recipe findById(long id) {
-        log.debug("Entering findById");
+        log.info("Entering findById for: " + id );
         Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
-        return optionalRecipe.orElseGet(() -> null);
+        Recipe recipe = optionalRecipe.orElseGet(() -> null);
+        log.info("Exiting findById for: " + id );
+        return recipe;
     }
 
     @Override
     @Transactional
     public RecipeCommand findCommandById(long id) {
+        log.info("Entering findCommandById for: " + id);
         Recipe recipe = findById(id);
-        return recipeToRecipeCommand.convert( recipe );
+        RecipeCommand recipeCommand = recipeToRecipeCommand.convert( recipe );
+        log.info("Exiting findCommandById for: " + id );
+        return recipeCommand;
     }
 
     @Override
     @Transactional
     public RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand) {
-        log.debug("Entering saveRecipeCommand");
+        log.info("Entering saveRecipeCommand for:" + recipeCommand.getDescription());
         Recipe recipe = recipeCommandToRecipe.convert(recipeCommand);
         Recipe savedRecipe = recipeRepository.save(recipe);
         RecipeCommand detachRecipeCommand = recipeToRecipeCommand.convert(savedRecipe);
-        log.debug("Exiting savRecipeCommand");
+        log.info("Exiting savRecipeCommand for: " + recipeCommand.getDescription());
         return detachRecipeCommand;
     }
 
     @Override
     public void deleteById(long id) {
+        log.info("Entering deleteById for: " + id );
         recipeRepository.deleteById(id);
+        log.info("Entering deleteById for: " + id );
     }
 
 
