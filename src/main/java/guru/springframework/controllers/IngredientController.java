@@ -72,4 +72,22 @@ public class IngredientController {
         log.info(this.getClass().getName() +":Exiting saveOrUpdate");
         return "redirect:/recipe/" + recipeId + "/ingredients/" + savedIngredientCommand.getId() + "/show";
     }
+
+    @RequestMapping("/recipe/{recipeId}/ingredients/new")
+    @PostMapping
+    public String newIngredient(@PathVariable String recipeId, Model model) {
+        log.info( this.getClass().getName() + ": Entering newIngredient");
+        RecipeCommand recipeCommand = recipeService.findCommandById( Long.parseLong( recipeId ));
+
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId( Long.parseLong( recipeId) );
+        ingredientCommand.setUnitOfMeasure( new UnitOfMeasureCommand());
+        model.addAttribute("ingredient", ingredientCommand );
+
+        Set<UnitOfMeasureCommand> unitOfMeasureCommandSet = unitOfMeasureService.listAllUOMs();
+        model.addAttribute("uoms", unitOfMeasureCommandSet);
+
+        log.info( this.getClass().getName() + ": Exiting newIngredient");
+        return "recipe/ingredient/ingredientform";
+    }
 }
