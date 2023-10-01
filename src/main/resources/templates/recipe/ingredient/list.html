@@ -18,9 +18,16 @@
       <div class="col-md-6 offset-md-3">
         <div class="card">
           <div class="card-header bg-primary">
-            <h1 class="card-title text-center text-white">
-              Ingredients
-            </h1>
+              <div class="row">
+                  <div class="col-md-10">
+                      <h1 class="card-title text-center text-white">
+                          Ingredients
+                      </h1>
+                  </div>
+                  <div class="col-md-2 d-flex justify-content-end my-auto pe-0 me-0">
+                      <a class="btn btn-secondary" th:href="'/recipe/' + ${recipe.getId()} + '/ingredients/new'">New</a>
+                  </div>
+              </div>
           </div>
           <div class="card-body">
               <div class="table-responsive">
