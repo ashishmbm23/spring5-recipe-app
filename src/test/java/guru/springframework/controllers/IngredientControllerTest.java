@@ -148,4 +148,10 @@ class IngredientControllerTest {
         verify( recipeService, times(1)).findCommandById( anyLong() );
         verify( unitOfMeasureService, times(1)).listAllUOMs();
     }
+
+    @Test
+    void deleteIngredientById() {
+        doNothing().when( ingredientService ).deleteById( anyLong(), anyLong() );
+        verify( ingredientService, times( 1)).deleteById( anyLong(), anyLong());
+    }
 }

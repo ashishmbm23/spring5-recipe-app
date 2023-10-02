@@ -108,4 +108,17 @@ class IngredientServiceImplTest {
         recipe.setIngredients( ingredientSet );
         return recipe;
     }
+
+    @Test
+    void deleteById() {
+        Recipe recipe = getRecipe();
+
+        when( recipeRepository.findById( anyLong() )).thenReturn( Optional.of( recipe) );
+        when( recipeRepository.save( any() )).thenReturn( recipe );
+
+        ingredientService.deleteById(ID, INGREDIENT_ID);
+
+        verify( recipeRepository, times(1)).findById( anyLong() );
+        verify( recipeRepository, times( 1)).save( any() );
+    }
 }

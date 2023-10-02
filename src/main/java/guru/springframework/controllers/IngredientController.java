@@ -90,4 +90,14 @@ public class IngredientController {
         log.info( this.getClass().getName() + ": Exiting newIngredient");
         return "recipe/ingredient/ingredientform";
     }
+
+    @RequestMapping("/recipe/{recipeId}/ingredients/{ingredientId}/delete")
+    @GetMapping
+    public String deleteIngredientById(@PathVariable String recipeId, @PathVariable String ingredientId,
+                                       Model model){
+        log.info( this.getClass().getName() + ": Entering deleteIngredientById" );
+        ingredientService.deleteById( Long.parseLong( recipeId), Long.parseLong( ingredientId ));
+        log.info( this.getClass().getName() + ": Exiting deleteIngredientById" );
+        return "redirect:/recipe/" + recipeId + "/ingredients" ;
+    }
 }
