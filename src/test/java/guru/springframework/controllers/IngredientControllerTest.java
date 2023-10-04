@@ -139,7 +139,7 @@ class IngredientControllerTest {
         mockRecipeServiceFindCommandById();
         mockUnitOfMeasureServiceListUOMs();
 
-        mockMvc.perform( get("/recipe/" + RECIPE_ID + "/ingredients/new"))
+        mockMvc.perform( post("/recipe/" + RECIPE_ID + "/ingredients/new"))
                 .andExpect( status().isOk() )
                 .andExpect( view().name("recipe/ingredient/ingredientform"))
                 .andExpect( model().attributeExists("ingredient"))

@@ -16,16 +16,14 @@ import org.springframework.web.bind.annotation.*;
 public class RecipeController {
     RecipeService recipeService;
 
-    @RequestMapping({"/recipe/{id}/show"})
-    @GetMapping
+    @GetMapping({"/recipe/{id}/show"})
     public String getRecipeById(@PathVariable String id, Model model){
         Recipe recipe = recipeService.findById(Long.parseLong(id));
         model.addAttribute("recipe", recipe);
         return "recipe/show";
     }
 
-    @RequestMapping("/recipe/new")
-    @GetMapping
+    @GetMapping("/recipe/new")
     public String newRecipe(Model model){
         model.addAttribute("recipe", new RecipeCommand());
         return "recipe/recipeform";
@@ -46,8 +44,7 @@ public class RecipeController {
         return "/recipe/recipeform" ;
     }
 
-    @RequestMapping("/recipe/{id}/delete")
-    @GetMapping
+    @GetMapping("/recipe/{id}/delete")
     public String deleteRecipe(@PathVariable String id, Model model){
         log.debug("delete id:" + id);
         recipeService.deleteById(Long.valueOf(id));

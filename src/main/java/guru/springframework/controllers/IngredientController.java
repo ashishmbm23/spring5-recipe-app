@@ -28,8 +28,7 @@ public class IngredientController {
     private final IngredientService ingredientService;
     private final UnitOfMeasureService unitOfMeasureService;
 
-    @RequestMapping("/recipe/{recipeId}/ingredients")
-    @GetMapping
+    @GetMapping("/recipe/{recipeId}/ingredients")
     public String listIngredients(@PathVariable String recipeId, Model model){
         log.info(this.getClass().getName() + ":Entering listIngredients");
         RecipeCommand recipe = recipeService.findCommandById(Long.parseLong(recipeId));
@@ -38,8 +37,7 @@ public class IngredientController {
         return "recipe/ingredient/list";
     }
 
-    @RequestMapping("/recipe/{recipeId}/ingredients/{ingredientId}/show")
-    @GetMapping
+    @GetMapping("/recipe/{recipeId}/ingredients/{ingredientId}/show")
     public String findIngredientById(@PathVariable String recipeId, @PathVariable String ingredientId,
                                      Model model) {
         log.info(this.getClass().getName() + ":Entering findIngredientById");
@@ -50,8 +48,7 @@ public class IngredientController {
         return "recipe/ingredient/show";
     }
 
-    @RequestMapping("/recipe/{recipeId}/ingredients/{ingredientId}/update")
-    @GetMapping
+    @GetMapping("/recipe/{recipeId}/ingredients/{ingredientId}/update")
     public String updateRecipe(@PathVariable String recipeId, @PathVariable String ingredientId,
                                Model model){
         log.info( this.getClass().getName() + ": Entering updateRecipe" );
@@ -73,8 +70,7 @@ public class IngredientController {
         return "redirect:/recipe/" + recipeId + "/ingredients/" + savedIngredientCommand.getId() + "/show";
     }
 
-    @RequestMapping("/recipe/{recipeId}/ingredients/new")
-    @PostMapping
+    @PostMapping("/recipe/{recipeId}/ingredients/new")
     public String newIngredient(@PathVariable String recipeId, Model model) {
         log.info( this.getClass().getName() + ": Entering newIngredient");
         RecipeCommand recipeCommand = recipeService.findCommandById( Long.parseLong( recipeId ));
@@ -91,8 +87,7 @@ public class IngredientController {
         return "recipe/ingredient/ingredientform";
     }
 
-    @RequestMapping("/recipe/{recipeId}/ingredients/{ingredientId}/delete")
-    @GetMapping
+    @GetMapping("/recipe/{recipeId}/ingredients/{ingredientId}/delete")
     public String deleteIngredientById(@PathVariable String recipeId, @PathVariable String ingredientId,
                                        Model model){
         log.info( this.getClass().getName() + ": Entering deleteIngredientById" );
