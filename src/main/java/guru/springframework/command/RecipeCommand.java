@@ -25,6 +25,7 @@ public class RecipeCommand implements Comparable<RecipeCommand>{
     private NotesCommand notes;
     private Difficulty difficlulty;
     private Set<CategoryCommand> categories = new HashSet<>();
+    private Byte[] image;
 
     @Override
     public int compareTo(RecipeCommand recipeCommand) {
