@@ -113,4 +113,11 @@ class RecipeControllerTest {
                 .andExpect( view().name("404"))
                 .andExpect( status().isNotFound());
     }
+
+    @Test
+    void handleBadRequest() throws Exception {
+        mockMvc.perform( get("/recipe/asdf/show"))
+                .andExpect( view().name("400"))
+                .andExpect( status().isBadRequest());
+    }
 }
