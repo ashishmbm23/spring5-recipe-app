@@ -25,6 +25,7 @@ class RecipeControllerTest {
 
     public static final long ID = 1L;
     public static final long RECIPE_CMD_ID = 1L;
+    public static final String RECIPE_FORM = "/recipe/recipeform";
     @Mock
     RecipeService recipeService;
 
@@ -72,7 +73,11 @@ class RecipeControllerTest {
         mockMvc.perform( post("/recipe/save" )
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .param("id", "")
-                        .param( "description", "")
+                        .param( "description", "this is a description")
+                        .param( "prepTime", "10")
+                        .param( "cookTime", "10")
+                        .param( "url", "http:\\www.google.com")
+                        .param( "directions", "see from google")
                 )
                 .andExpect( status().is3xxRedirection() )
                 .andExpect( view().name("redirect:/recipe/" + RECIPE_CMD_ID + "/show" ));
@@ -86,7 +91,7 @@ class RecipeControllerTest {
         mockMvc.perform( get("/recipe/1/update" ))
                 .andExpect( status().isOk() )
                 .andExpect( model().attributeExists("recipe" ))
-                .andExpect( view().name("/recipe/recipeform"));
+                .andExpect( view().name(RECIPE_FORM));
     }
 
     @Test
@@ -121,5 +126,16 @@ class RecipeControllerTest {
         mockMvc.perform( get("/recipe/asdf/show"))
                 .andExpect( view().name("400"))
                 .andExpect( status().isBadRequest());
+    }
+
+    @Test
+    public void saveOrUpdateNotValidCase() throws Exception{
+
+        mockMvc.perform( post("/recipe/save")
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("id", "")
+                        .param("description", "this is a description"))
+                .andExpect( view().name("recipe/recipeform"))
+                .andExpect( status().isOk() );
     }
 }

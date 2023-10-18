@@ -4,11 +4,13 @@ import guru.springframework.command.RecipeCommand;
 import guru.springframework.domain.Recipe;
 import guru.springframework.exception.NotFoundException;
 import guru.springframework.services.RecipeService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Slf4j
 @RequestMapping("")
 public class RecipeController {
+    public static final String RECIPE_RECIPEFORM = "recipe/recipeform";
     RecipeService recipeService;
 
     @GetMapping({"/recipe/{id}/show"})
@@ -29,12 +32,18 @@ public class RecipeController {
     @GetMapping("/recipe/new")
     public String newRecipe(Model model){
         model.addAttribute("recipe", new RecipeCommand());
-        return "recipe/recipeform";
+        return RECIPE_RECIPEFORM;
     }
 
     @RequestMapping("/recipe/save")
     @PostMapping
-    public String saveOrUpdateRecipe(@ModelAttribute RecipeCommand recipeCommand){
+    public String saveOrUpdateRecipe(@Valid @ModelAttribute("recipe") RecipeCommand recipeCommand, BindingResult result){
+        if( result.hasErrors() ){
+            result.getAllErrors().forEach(
+                    objectError -> log.debug(objectError.toString())
+            );
+            return RECIPE_RECIPEFORM;
+        }
         RecipeCommand savedRecipe = recipeService.saveRecipeCommand(recipeCommand);
         return "redirect:/recipe/" +savedRecipe.getId() +"/show" ;
     }
